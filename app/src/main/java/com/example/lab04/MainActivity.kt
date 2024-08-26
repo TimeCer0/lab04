@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,12 +34,8 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
-                    // Uso del componente CustomButton dentro del Scaffold
-                    CustomButton(
-                        onClick = { /* Acción del botón */ },
-                        text = "Presionar"
-                    )
-
+                    // Añadir CustomLazyColumn dentro del Scaffold
+                    CustomLazyColumn()
                 }
             }
         }
@@ -46,38 +43,36 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun CustomLazyColumn() {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        items(10) { index ->
+            Text(
+                text = "Item #$index",
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxSize(),
+                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp)
+            )
+        }
+    }
+}
+
+
+@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "",
+        text = "!",
         modifier = modifier
     )
 }
 
-@Composable
-fun CustomButton(onClick: () -> Unit, text: String) {
-    Button(
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE)),
-        shape = RoundedCornerShape(8.dp),
-        modifier = Modifier
-            .padding(100.dp)
-            .fillMaxSize()
-            .height(10.dp)
-    ) {
-        Text(
-            text = text,
-            color = Color.White,
-            style = MaterialTheme.typography.bodyLarge
-        )
-    }
-}
- //para poder tener una vista previa del codigo
+// para una vista previa
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun CustomLazyColumnPreview() {
     Lab04Theme {
-        Greeting("Android")
-        // También puedes previsualizar el botón
-        CustomButton(onClick = {}, text = "Presionar")
+        CustomLazyColumn()
     }
 }
