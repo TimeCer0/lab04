@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
@@ -16,6 +17,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,8 +37,18 @@ class MainActivity : ComponentActivity() {
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
-                    // Añadir CustomLazyColumn dentro del Scaffold
-                    CustomLazyColumn()
+                    val showDialog = remember { mutableStateOf(false) }
+
+                    CustomButton(
+                        onClick = { showDialog.value = true },
+                        text = "Hello Moto"
+                    )
+
+                    CustomAlertDialog(
+                        showDialog = showDialog.value,
+                        onDismiss = { showDialog.value = false },
+                        onConfirm = { /* Acción al confirmar */ showDialog.value = false }
+                    )
                 }
             }
         }
@@ -43,21 +56,57 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CustomLazyColumn() {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        items(10) { index ->
-            Text(
-                text = "Item #$index",
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxSize(),
-                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp)
-            )
-        }
+fun CustomAlertDialog(
+    showDialog: Boolean,
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit
+) {
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = onDismiss,
+            title = {
+                Text(text = "Título del Diálogo")
+            },
+            text = {
+                Text("Este es el contenido del diálogo. ¿Estás seguro de que quieres continuar?")
+            },
+            confirmButton = {
+                Button(
+                    onClick = onConfirm
+                ) {
+                    Text("Confirmar")
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = onDismiss
+                ) {
+                    Text("Cancelar")
+                }
+            }
+        )
     }
 }
+
+@Composable
+fun CustomButton(onClick: () -> Unit, text: String) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE)),
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize()
+            .height(50.dp)
+    ) {
+        Text(
+            text = text,
+            color = Color.White,
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+}
+
 
 
 @Composable
@@ -68,11 +117,3 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-// para una vista previa
-@Preview(showBackground = true)
-@Composable
-fun CustomLazyColumnPreview() {
-    Lab04Theme {
-        CustomLazyColumn()
-    }
-}
