@@ -65,28 +65,46 @@ fun CustomAlertDialog(
         AlertDialog(
             onDismissRequest = onDismiss,
             title = {
-                Text(text = "Título del Diálogo")
+                Text(
+                    text = "Hello Babe",
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
+                    color = Color.Blue // Cambia el color del texto del título
+                )
             },
             text = {
-                Text("Este es el contenido del diálogo. ¿Estás seguro de que quieres continuar?")
+                Text(
+                    text = "Aceptar si quieres y si no, igual dale",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    color = Color.Gray // Cambia el color del texto del cuerpo
+                )
             },
             confirmButton = {
                 Button(
-                    onClick = onConfirm
+                    onClick = onConfirm,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Green // Cambia el color de fondo del botón de confirmación
+                    ),
+                    shape = RoundedCornerShape(8.dp) // Cambia la forma del botón
                 ) {
                     Text("Confirmar")
                 }
             },
             dismissButton = {
                 Button(
-                    onClick = onDismiss
+                    onClick = onDismiss,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Red // Cambia el color de fondo del botón de descarte
+                    ),
+                    shape = RoundedCornerShape(8.dp) // Cambia la forma del botón
                 ) {
-                    Text("Cancelar")
+                    Text("No existo")
                 }
-            }
-        )
+            },
+            )
     }
 }
+
+
 
 @Composable
 fun CustomButton(onClick: () -> Unit, text: String) {
@@ -107,25 +125,6 @@ fun CustomButton(onClick: () -> Unit, text: String) {
     }
 }
 
-fun ViewHolaCurso() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Welcome to the Course!",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Hello, Student!",
-            fontSize = 20.sp
-        )
-    }
-}
 
 
 @Composable
