@@ -107,25 +107,6 @@ fun CustomButton(onClick: () -> Unit, text: String) {
     }
 }
 
-fun ViewHolaCurso() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Welcome to the Course!",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Hello, Student!",
-            fontSize = 20.sp
-        )
-    }
-}
 
 
 @Composable
