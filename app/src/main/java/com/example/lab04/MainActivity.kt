@@ -110,17 +110,17 @@ fun CustomAlertDialog(
 fun CustomButton(onClick: () -> Unit, text: String) {
     Button(
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE)),
-        shape = RoundedCornerShape(8.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00FF00)),
+        shape = RoundedCornerShape(15.dp),
         modifier = Modifier
-            .padding(16.dp)
+            .padding(25.dp)
             .fillMaxSize()
-            .height(50.dp)
+            .height(60.dp)
     ) {
         Text(
             text = text,
-            color = Color.White,
-            style = MaterialTheme.typography.bodyLarge
+            color = Color.Black,
+            style = MaterialTheme.typography.displayLarge
         )
     }
 }
